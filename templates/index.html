@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Habit Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Today's Habits</h1>
+    <p>Completion: {{ completion }}%</p>
+    <form method="POST" action="/update">
+        {% for habit in habits %}
+            <label>
+                <input type="checkbox" name="done" value="true"
+                       onclick="this.form.habit_id.value={{ habit.id }}; this.form.submit();"
+                       {% if habit.id in done_ids %}checked{% endif %}>
+                {{ habit.name }} (Streak: {{ habit.streak }})
+            </label><br>
+        {% endfor %}
+        <input type="hidden" name="habit_id">
+    </form>
+</body>
+</html>
